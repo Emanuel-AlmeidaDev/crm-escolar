@@ -132,7 +132,7 @@ MEDIA_URL = 'media/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    BASE_DIR / 'static'),
+    BASE_DIR / 'static',
 )
 
 # Default primary key field type
