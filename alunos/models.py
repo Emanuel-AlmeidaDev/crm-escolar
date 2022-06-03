@@ -1,7 +1,9 @@
 from django.db import models
 
 # Create your models here.
+
 class Aluno(models.Model):
+    
     STATUS_TYPE = [
         ('AT','ATIVO'),
         ('AR','AGUARDANDO ROTA'),

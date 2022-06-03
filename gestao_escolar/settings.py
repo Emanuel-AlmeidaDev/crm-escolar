@@ -40,6 +40,7 @@ PROJECT_APPS = [
     'escola.apps.EscolaConfig',
     'atendentes.apps.AtendentesConfig',
     'contratos.apps.ContratosConfig',
+    'viagens.apps.ViagensConfig',
 ]
 
 INSTALLED_APPS = [
