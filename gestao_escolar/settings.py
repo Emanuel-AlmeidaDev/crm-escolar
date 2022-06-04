@@ -41,6 +41,7 @@ PROJECT_APPS = [
     'atendentes.apps.AtendentesConfig',
     'contratos.apps.ContratosConfig',
     'viagens.apps.ViagensConfig',
+    'dashboards.apps.DashboardsConfig',
 ]
 
 INSTALLED_APPS = [
@@ -67,7 +68,7 @@ ROOT_URLCONF = 'gestao_escolar.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates/',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
