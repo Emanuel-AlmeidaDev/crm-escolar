@@ -1,4 +1,5 @@
 .venv/
 .env
 staticfiles/
-local_Settings.py
+local_settings.py
+__pycache__/

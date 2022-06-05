@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load static %}
+{% load pagination %}
+
+{% block extra_js %}
+  <script type="text/javascript" src="{% static 'js/filter.js' %}"></script>
+{% endblock extra_js %}
+
+{% block content %}
+<ol class="breadcrumb my-4">
+  <li class="breadcrumb-item"><i class="fa fa-home mr-1"></i></i>Painel</li>
+  {% block breadcrumb_extend %}{% endblock breadcrumb_extend %}
+</ol>
+
+<div class="card shadow-sm">
+  <div class="card-header d-flex flex-row justify-content-between">
+    {% block card_header %}{% endblock card_header %}
+  </div>
+
+  <div class="card-body">
+    {% if messages %}
+    <div class="my-2">
+        {% for message in messages %}
+          <div class="alert text-center alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span>&times;</span>
+              </button>
+          </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% block conteudo %} {% endblock conteudo %}
+    
+    <form class="table-responsive ignore-send" id="table-list">
+      <div class="text-gray-800 mb-2 form-inline">
+        <div class="col-md-6 pl-0">
+          <h6>Exibindo <b>{{ page_obj.start_index }}-{{ page_obj.end_index }}</b> de <b>{{ count }}</b> ite{{ count|pluralize:"m,ns" }}.</h6>
+        </div>
+        {% if count > 20 %}
+          <div class="col-md">
+            <div class="form-group row float-md-right">
+              <label class="col-md col-form-label">Quantidade</label>
+              <select name="size" class="custom-select">
+                <option value="20" {% if request.GET.size == '20' %}selected{% endif %}>20</option>
+                <option value="25" {% if request.GET.size == '25' %}selected{% endif %}>25</option>
+                <option value="50" {% if request.GET.size == '50' %}selected{% endif %}>50</option>
+                <option value="100" {% if request.GET.size == '100' %}selected{% endif %}>100</option>
+              </select>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+      {% block table %}{% endblock table %}
+      {% if count > 0 %}
+      {% endif %}
+
+      {% block msg_null %}{% endblock msg_null %}
+      
+      {% if page_obj.has_other_pages %}
+        {% get_pagination_links paginator page_obj on_each_side=5 on_ends=0 as pagination_links %}
+        <ul class="pagination pagination-md justify-content-end align-items-center mt-4">
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}{{ link_search }}">
+                <span>&laquo;</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link">
+                <span>&laquo;</span>
+              </span>
+            </li>
+          {% endif %}
+          {{page_obj.num_pages}}
+          {% for page_num in pagination_links %}
+              {% if page_num.is_current %}
+                <li class="page-item active">
+                  <a class="page-link" href="?page={{ page_num.number }}{{ link_search }}">
+                    <span>{{ page_num.number }}</span>
+                  </a>
+                </li>            
+              {% else %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_num.number }}{{ link_search }}">
+                    <span>{{ page_num.number }}</span>
+                  </a>
+                </li>
+              {% endif %}
+          {% endfor %}
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}{{ link_search }}">
+                <span> &raquo;</span>
+              </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+              <span class="page-link">
+                <span> &raquo;</span>
+              </span>
+            </li>
+          {% endif %}
+        </ul>
+      {% endif %}
+
+    </form>
+    {% block modal %} {% endblock modal %}
+  </div>
+</div>
+{% endblock %}
+
