@@ -86,6 +86,7 @@
                                         <div class="col-sm-12 mb-3 mb-sm-0">
                                             <label for="">Aluno: </label>
                                             <select class="form-control select-aluno" name="aluno" id="">
+                                                <option value="">Selecione o aluno...</option>
                                                 {% for aluno in alunos %}
                                                 <option value="{{ aluno.id }}">{{ aluno.nome }}</option>
                                                 {% endfor %}
@@ -214,10 +215,9 @@
     <script>
         // In your Javascript (external .js resource or <script> tag)
         $(document).ready(function() {
-            $('.select-aluno').select2(
-                width: 'resolve'
-            );
-            $('.select-aluno').wi();
+            $('.select-aluno').select2({
+                width: '100%',
+        });
         });
     </script>
 {% endblock extra_js %}

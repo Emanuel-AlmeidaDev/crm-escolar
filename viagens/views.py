@@ -10,7 +10,7 @@ from .models import AgendaViagem
 
 def viagens(request):
     viagens = AgendaViagem.objects.all().order_by('datetime')
-    paginator = Paginator(viagens, 1)
+    paginator = Paginator(viagens, 25)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
