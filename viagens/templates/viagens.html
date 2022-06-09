@@ -13,10 +13,17 @@
 
 {% block breadcrumb_extend %}
 <li class="breadcrumb-item active">Viagens</li>
+
 {% endblock breadcrumb_extend %}
 
 {% block card_header %}
 <h6 class="font-weight-bold text-uppercase text-primary my-auto">Viagens</h6>
+<form action="" id="filtro" class="filtro">
+    <div class="">
+        <input class="form-control" type="date" id="date" name="date"
+        value="">
+    </div>
+</form>
 <div>
     <a type="button" class="btn btn-sm btn-success my-auto" data-toggle="modal" data-target="#exampleModal">
         Agendar viagens de alunos
@@ -25,6 +32,7 @@
 {% endblock card_header %}
 
 {% block table %}
+
 <table class="table" cellspacing="0">
     <thead>
         <tr>
@@ -34,9 +42,7 @@
             <th>Tipo</th>
             <th>&nbsp;</th>
         </tr>
-
     </thead>
-
     {% if page_obj %}
     <tbody>
         {% for viagem in page_obj %}
@@ -54,7 +60,7 @@
                 <a href=" " data-delete="Rota" type="button" class="btn btn-sm btn-outline-dark px-2 py-1"><i
                         class="fa fa-trash"></i></a>
             </td> {% endcomment %}
-
+            
         </tr>
         {% endfor %}
     </tbody>
@@ -215,9 +221,21 @@
     <script>
         // In your Javascript (external .js resource or <script> tag)
         $(document).ready(function() {
+            const params = new URLSearchParams(window.location.search)
+            $('#date').val(params.get('date'))
             $('.select-aluno').select2({
                 width: '100%',
+            });
+
+            $('#date').on('change', function(){
+                $('#filtro').submit();
+            })
         });
-        });
+    </script>
+
+    <script>
+        $(document).on('change', function(){
+            
+        })
     </script>
 {% endblock extra_js %}

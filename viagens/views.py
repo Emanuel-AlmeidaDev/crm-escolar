@@ -9,9 +9,18 @@ from .models import AgendaViagem
 
 
 def viagens(request):
+    date = None
+    if request.GET.get('date'): 
+        date = datetime.strptime(
+            request.GET.get('date'), '%Y-%m-%d').date()
     viagens = AgendaViagem.objects.all().order_by('datetime')
-    paginator = Paginator(viagens, 25)
 
+    if date:
+        viagens = AgendaViagem.objects.filter(datetime__date=date).order_by('datetime')
+    
+    print(date)
+
+    paginator = Paginator(viagens, 25)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
